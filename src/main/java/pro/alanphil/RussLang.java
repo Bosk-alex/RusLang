@@ -1,5 +1,6 @@
 package pro.alanphil;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.*;
@@ -11,17 +12,33 @@ import java.util.logging.*;
  *
  */
 public class RussLang {
-    public static void main(String[] args) throws IOException {
-        Logger logger = Logger.getLogger("Common");
+    public static final Logger logger = Logger.getLogger("Common");
 
-        List<String> file = getListFromFile("D:/JavaApps/RusLang/src/main/resources/files/verbs.txt",
-                                "windows-1251");
+    public static void main(String[] args) throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("src/main/resources/RusLang.properties"));
+
+        List<String> file = getListFromFile(properties.getProperty("pathToVerbs"),properties.getProperty("code"));
+        List<Integer> indexes = getListOfEmptyIndexes(file);
+
+        List<List<String>> groups = getGroupsFromFile(indexes, file);
+        groups.forEach(list -> logger.log(Level.INFO, list::toString));
+    }
+
+    private static List<String> getListFromFile(String fileName, String codeName) throws IOException {
+        return Files.readAllLines(Paths.get(fileName), Charset.forName(codeName));
+    }
+
+    private static List<Integer> getListOfEmptyIndexes(List<String> file) {
         List<Integer> indexes = new ArrayList<>();
         for (int index = 0; index < file.size(); index++) {
             if (file.get(index).isEmpty()) indexes.add(index);
         }
-        logger.log(Level.INFO, indexes::toString);
+//        logger.log(Level.INFO, indexes::toString);
+        return indexes;
+    }
 
+    private static List<List<String>> getGroupsFromFile(List<Integer> indexes, List<String> file) {
         List<List<String>> groups = new ArrayList<>(indexes.size() + 1);
         List<String> group = new ArrayList<>();
 
@@ -39,12 +56,6 @@ public class RussLang {
         }
         groups.add(group);
         logger.log(Level.INFO, () -> String.valueOf(groups.size()));
-        groups.forEach(list -> logger.log(Level.INFO, list::toString));
+        return groups;
     }
-
-    static List<String> getListFromFile(String fileName, String codeName) throws IOException {
-        return Files.readAllLines(Paths.get(fileName), Charset.forName(codeName));
-    }
-
-
 }
