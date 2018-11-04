@@ -12,17 +12,19 @@ import java.util.logging.*;
  *
  */
 public class RussLang {
-    public static final Logger logger = Logger.getLogger("Common");
+    private static final Logger logger = Logger.getLogger("Common");
+    private static final Properties properties = new Properties();
 
     public static void main(String[] args) throws IOException {
-        Properties properties = new Properties();
         properties.load(new FileInputStream("src/main/resources/RusLang.properties"));
 
-        List<String> file = getListFromFile(properties.getProperty("pathToVerbs"),properties.getProperty("code"));
-        List<Integer> indexes = getListOfEmptyIndexes(file);
-
-        List<List<String>> groups = getGroupsFromFile(indexes, file);
-        groups.forEach(list -> logger.log(Level.INFO, list::toString));
+        for (Object key : properties.keySet()) {
+            if (!key.toString().contains("path")) continue;
+            List<String> file = getListFromFile(properties.getProperty(String.valueOf(key)),properties.getProperty("code"));
+            List<Integer> indexes = getListOfEmptyIndexes(file);
+            List<List<String>> groups = getGroupsFromFile(indexes, file);
+            groups.forEach(list -> logger.log(Level.INFO, list::toString));
+        }
     }
 
     private static List<String> getListFromFile(String fileName, String codeName) throws IOException {
@@ -34,7 +36,6 @@ public class RussLang {
         for (int index = 0; index < file.size(); index++) {
             if (file.get(index).isEmpty()) indexes.add(index);
         }
-//        logger.log(Level.INFO, indexes::toString);
         return indexes;
     }
 
