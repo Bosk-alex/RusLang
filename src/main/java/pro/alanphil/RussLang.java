@@ -1,15 +1,10 @@
 package pro.alanphil;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Stream;
+import java.nio.file.*;
+import java.util.*;
+import java.util.logging.*;
 
 /**
  * Hello world!
@@ -19,12 +14,8 @@ public class RussLang {
     public static void main(String[] args) throws IOException {
         Logger logger = Logger.getLogger("Common");
 
-        List<String> file = Files.readAllLines(Paths.get("D:/JavaApps/RusLang/src/main/resources/files/verbs.txt"),
-                Charset.forName("windows-1251"));
-        StringBuilder builder = new StringBuilder(1000);
-        file.forEach(builder::append);
-        String s = new String(builder);
-
+        List<String> file = getListFromFile("D:/JavaApps/RusLang/src/main/resources/files/verbs.txt",
+                                "windows-1251");
         List<Integer> indexes = new ArrayList<>();
         for (int index = 0; index < file.size(); index++) {
             if (file.get(index).isEmpty()) indexes.add(index);
@@ -47,9 +38,13 @@ public class RussLang {
             group.add(file.get(fileIndex));
         }
         groups.add(group);
-
-
         logger.log(Level.INFO, () -> String.valueOf(groups.size()));
         groups.forEach(list -> logger.log(Level.INFO, list::toString));
     }
+
+    static List<String> getListFromFile(String fileName, String codeName) throws IOException {
+        return Files.readAllLines(Paths.get(fileName), Charset.forName(codeName));
+    }
+
+
 }
