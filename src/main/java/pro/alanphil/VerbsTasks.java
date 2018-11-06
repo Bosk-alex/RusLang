@@ -34,6 +34,7 @@ class VerbsTasks {
                     } else break;
                 }
             }
+            logger.info("end of method");
             return newList;
         }
     }
@@ -53,7 +54,6 @@ class VerbsTasks {
     static List<List<String>> checkParticipleList(List<List<String>> verbGroups) {
         List<List<String>> newVerbGroups = new ArrayList<>();
         for (List<String> group : verbGroups) {
-            logger.info(group.get(0));
             newVerbGroups.add(checkParticipleGroup(group));
         }
         return newVerbGroups;
@@ -76,22 +76,17 @@ class VerbsTasks {
             if (newGroup.get(index).contains(type)) {
                 isTypeIn = true;
                 indexes.add(index);
-                logger.info(newGroup.get(index));
             }
         }
 
         if(isTypeIn && indexes.size() > 1) {
             for (Integer index : indexes) {
                 String word = newGroup.get(index);
-                logger.info(word);
                 if (word.contains("ей")) {
                     word = word.replace(type, type + TYPE_1);
-                    logger.info("if " + type + " " + type + TYPE_1);
                 } else if (word.contains("ею")) {
                     word = word.replace(type, type + TYPE_2);
-                    logger.info("else if " + type + " " + type + TYPE_2);
                 }
-                logger.info(word);
                 newGroup.set(index, word);
             }
         }
