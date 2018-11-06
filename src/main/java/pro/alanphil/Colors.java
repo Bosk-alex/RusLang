@@ -11,11 +11,11 @@ public enum Colors {
         this.colorCode = colorCode;
     }
 
-    public int getColorCode() {
+    private int getColorCode() {
         return colorCode;
     }
 
-    public static String colorMassage(String text, Colors color) {
+    public static String colorMessage(String text, Colors color) {
         return colorAllMassages(text, color) + POSTFIX;
     }
 
