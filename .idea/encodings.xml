@@ -8,6 +8,18 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/files/Местоимения (фрагмент).txt" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/resources/files/Числительные (фрагмент).txt" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/resources/tasks/Алгоритм. Глаголы.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/tasks/Алгоритм. Прилагательные.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/tasks/Алгоритм. Существительные.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/originalFiles/adjectives.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/originalFiles/nouns.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/originalFiles/verbs.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/originalFiles/Местоимения (фрагмент).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/originalFiles/Числительные (фрагмент).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/test/test-resourses/files/Глаголы (фрагмент).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/test/test-resourses/files/Местоимения (фрагмент).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/test/test-resourses/files/Прилагательные (фрагмент).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/test/test-resourses/files/Существительные (фрагмент).txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/test/test-resourses/files/Числительные (фрагмент).txt" charset="windows-1251" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>
