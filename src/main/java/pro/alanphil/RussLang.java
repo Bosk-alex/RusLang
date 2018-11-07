@@ -27,6 +27,12 @@ class RussLang {
         Map<String, List<List<String>>> wordGroups = createMapOfLists();
 
         verbTasks(wordGroups.get("Verbs"));
+
+        nounTasks(wordGroups.get("Nouns"));
+    }
+
+    private static void nounTasks(List<List<String>> wordGroups) throws IOException {
+        saveListsToFile(wordGroups, properties.getProperty("outputNounGroups"));
     }
 
     private static Map<String, List<List<String>>> createMapOfLists() throws IOException {
