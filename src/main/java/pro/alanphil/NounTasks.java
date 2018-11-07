@@ -5,7 +5,7 @@ import java.util.List;
 
 import static pro.alanphil.CommonTasks.*;
 
-public class NounTasks {
+class NounTasks {
     private static final String SMNI = "СмнИ";
     private static final String SMNV = "СмнВ";
     private static final String I = "и";
