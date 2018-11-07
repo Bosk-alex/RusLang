@@ -26,7 +26,7 @@ class RussLang {
         properties.load(new FileInputStream("src/main/resources/RusLang.properties"));
         Map<String, List<List<String>>> wordGroups = createMapOfLists();
 
-        verbTasks(wordGroups);
+        verbTasks(wordGroups.get("Verbs"));
     }
 
     private static Map<String, List<List<String>>> createMapOfLists() throws IOException {
@@ -42,13 +42,14 @@ class RussLang {
         return wordGroups;
     }
 
-    private static void verbTasks(Map<String, List<List<String>>> wordGroups) throws IOException {
-        List<List<String>> tempVerbGroups = new ArrayList<>();
+    private static void verbTasks(List<List<String>> wordGroups) throws IOException {
+        List<List<String>> verbGroups = new ArrayList<>();
 
-        wordGroups.get("Verbs").forEach(list -> tempVerbGroups.add(removeRepeats(list)));
+        List<List<String>> finalVerbGroups = verbGroups;
+        wordGroups.forEach(list -> finalVerbGroups.add(removeRepeats(list)));
         saveSetToFileAndClear("outputVerbStringRepeat");
 
-        List<List<String>> verbGroups = checkParticipleList(tempVerbGroups);
+        verbGroups = checkParticipleList(verbGroups);
 
         verbGroups.forEach(list -> checkSubstringRepeats(list, GP));
         saveSetToFileAndClear("outputVerbGPRepeat");
