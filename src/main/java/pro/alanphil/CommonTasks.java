@@ -3,8 +3,9 @@ package pro.alanphil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
-public class CommonTasks {
+class CommonTasks {
 
     private static final String TYPE_1 = "1";
     private static final String TYPE_2 = "2";
@@ -24,12 +25,25 @@ public class CommonTasks {
         return isTypeIn;
     }
 
-    static void renameType(List<String> newGroup, List<Integer> indexes, String type) {
+    static void renameTypeIfContains(List<String> newGroup, List<Integer> indexes, String subString1, String subString2, String type) {
         for (Integer index : indexes) {
             String word = newGroup.get(index);
-            if (word.contains("ей")) {
+            if (word.contains(subString1)) {
                 word = word.replace(type, type + TYPE_1);
-            } else if (word.contains("ею")) {
+            } else if (word.contains(subString2)) {
+                word = word.replace(type, type + TYPE_2);
+            }
+            newGroup.set(index, word);
+        }
+    }
+
+    static void renameTypeIfEnds(List<String> newGroup, List<Integer> indexes, String subString1, String subString2, String type) {
+        for (Integer index : indexes) {
+            String word = newGroup.get(index);
+            String firstWord = new StringTokenizer(word).nextToken();
+            if (firstWord.endsWith(subString1)) {
+                word = word.replace(type, type + TYPE_1);
+            } else if (firstWord.endsWith(subString2)) {
                 word = word.replace(type, type + TYPE_2);
             }
             newGroup.set(index, word);
