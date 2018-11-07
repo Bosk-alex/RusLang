@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pro.alanphil.VerbsTasks.groupsWithRepeats;
+
 class FilesToOrFromLists {
 
     private FilesToOrFromLists() {
@@ -70,5 +72,10 @@ class FilesToOrFromLists {
             builder.append(word).append(RussLang.STRING_SEPARATOR);
         }
         return builder.toString();
+    }
+
+    static void saveSetToFileAndClear(String outputPath) throws IOException {
+        saveListToFile(new ArrayList<>(groupsWithRepeats), RussLang.properties.getProperty(outputPath));
+        groupsWithRepeats.clear();
     }
 }
