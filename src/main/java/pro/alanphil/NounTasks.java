@@ -24,7 +24,6 @@ class NounTasks {
         throw new IllegalStateException("Utility class");
     }
 
-
     static List<List<String>> renameNounTypes(List<List<String>> nounGroups) {
         List<List<String>> newNounGroup = new ArrayList<>(nounGroups);
         for (List<String> nounGroup : newNounGroup) {
