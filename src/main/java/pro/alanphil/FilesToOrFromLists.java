@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static pro.alanphil.VerbsTasks.groupsWithRepeats;
+import static pro.alanphil.VerbTasks.groupsWithRepeats;
 
 class FilesToOrFromLists {
 
