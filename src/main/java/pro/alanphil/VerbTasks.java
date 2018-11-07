@@ -7,22 +7,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static pro.alanphil.CommonTasks.renameTypeIfContains;
 import static pro.alanphil.RussLang.logger;
 
-class VerbsTasks {
+class VerbTasks {
     private static final Set<String> repeatingStrings = new HashSet<>();
     static final Set<String> groupsWithRepeats = new HashSet<>();
     private static final String PND = "ПНДжТ";
     private static final String PNS = "ПНСжТ";
     private static final String PPD = "ППДжТ";
     private static final String PPS = "ППСжТ";
-    private static final String TYPE_1 = "1";
-    private static final String TYPE_2 = "2";
+    private static final String EY = "ей";
+    private static final String EYU = "ею";
+
     static final String GP = "ГПм";
     static final String DN = "ДН";
     static final String DP = "ДП";
 
-    private VerbsTasks() {
+    private VerbTasks() {
         throw new IllegalStateException("Utility class");
     }
 
@@ -39,7 +41,6 @@ class VerbsTasks {
                     } else break;
                 }
             }
-            logger.info("end of method");
             return newList;
         }
     }
@@ -73,41 +74,29 @@ class VerbsTasks {
         for (List<String> group : verbGroups) {
             newVerbGroups.add(checkParticipleGroup(group));
         }
+        logger.info("end of participle method");
         return newVerbGroups;
     }
 
     private static List<String> checkParticipleGroup(List<String> group) {
-        List<String> newGroup = checkParticiple(group, PND);
-        newGroup = checkParticiple(newGroup, PNS);
-        newGroup = checkParticiple(newGroup, PPD);
-        newGroup = checkParticiple(newGroup, PPS);
+        List<String> newGroup = checkAndRenameParticiple(group, PND);
+        newGroup = checkAndRenameParticiple(newGroup, PNS);
+        newGroup = checkAndRenameParticiple(newGroup, PPD);
+        newGroup = checkAndRenameParticiple(newGroup, PPS);
 
         return newGroup;
     }
 
-    private static List<String> checkParticiple(List<String> group, String type) {
+    private static List<String> checkAndRenameParticiple(List<String> group, String type) {
         List<String> newGroup = new ArrayList<>(group);
         List<Integer> indexes = new ArrayList<>();
-        boolean isTypeIn = false;
-        for (int index = 0; index < newGroup.size(); index++) {
-            if (newGroup.get(index).contains(type)) {
-                isTypeIn = true;
-                indexes.add(index);
-            }
-        }
+        boolean isTypeIn = CommonTasks.checkType(newGroup, indexes, type);
 
         if(isTypeIn && indexes.size() > 1) {
-            for (Integer index : indexes) {
-                String word = newGroup.get(index);
-                if (word.contains("ей")) {
-                    word = word.replace(type, type + TYPE_1);
-                } else if (word.contains("ею")) {
-                    word = word.replace(type, type + TYPE_2);
-                }
-                newGroup.set(index, word);
-            }
+            renameTypeIfContains(newGroup, indexes, EY, EYU, type);
         }
 
         return newGroup;
     }
+
 }
