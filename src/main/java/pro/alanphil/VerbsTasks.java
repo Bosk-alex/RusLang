@@ -1,5 +1,7 @@
 package pro.alanphil;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,13 +18,16 @@ class VerbsTasks {
     private static final String PPS = "ППСжТ";
     private static final String TYPE_1 = "1";
     private static final String TYPE_2 = "2";
+    static final String GP = "ГПм";
+    static final String DN = "ДН";
+    static final String DP = "ДП";
 
     private VerbsTasks() {
         throw new IllegalStateException("Utility class");
     }
 
     static List<String> removeRepeats(List<String> list) {
-        checkRepeats(list);
+        checkStringRepeats(list);
         if (repeatingStrings.isEmpty()) {
             return list;
         } else {
@@ -39,7 +44,7 @@ class VerbsTasks {
         }
     }
 
-    private static void checkRepeats(List<String> list) {
+    private static void checkStringRepeats(@NotNull List<String> list) {
         for (int index = 0; index < list.size() - 1; index++) {
             String groupName = list.get(0);
             for (int subIndex = index + 1; subIndex < list.size(); subIndex++) {
@@ -51,7 +56,19 @@ class VerbsTasks {
         }
     }
 
-    static List<List<String>> checkParticipleList(List<List<String>> verbGroups) {
+    static void checkSubstringRepeats(@NotNull List<String> list, String type) {
+        for (int index = 0; index < list.size() - 1; index++) {
+            String groupName = list.get(0);
+            for (int subIndex = index + 1; subIndex < list.size(); subIndex++) {
+                if (list.get(index).contains(type) && list.get(subIndex).contains(type)) {
+                    groupsWithRepeats.add(groupName);
+                    repeatingStrings.add(list.get(index));
+                }
+            }
+        }
+    }
+
+    static List<List<String>> checkParticipleList(@NotNull List<List<String>> verbGroups) {
         List<List<String>> newVerbGroups = new ArrayList<>();
         for (List<String> group : verbGroups) {
             newVerbGroups.add(checkParticipleGroup(group));
