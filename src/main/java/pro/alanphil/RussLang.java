@@ -1,5 +1,7 @@
 package pro.alanphil;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
@@ -7,7 +9,7 @@ import java.util.logging.*;
 
 import static pro.alanphil.Colors.*;
 import static pro.alanphil.FilesToOrFromLists.*;
-import static pro.alanphil.VerbsTasks.*;
+import static pro.alanphil.VerbTasks.*;
 
 /**
  * Hello world!
@@ -31,10 +33,6 @@ class RussLang {
         nounTasks(wordGroups.get("Nouns"));
     }
 
-    private static void nounTasks(List<List<String>> wordGroups) throws IOException {
-        saveListsToFile(wordGroups, properties.getProperty("outputNounGroups"));
-    }
-
     private static Map<String, List<List<String>>> createMapOfLists() throws IOException {
         Map<String, List<List<String>>> wordGroups = new HashMap<>();
         for (Object key : properties.keySet()) {
@@ -48,7 +46,7 @@ class RussLang {
         return wordGroups;
     }
 
-    private static void verbTasks(List<List<String>> wordGroups) throws IOException {
+    private static void verbTasks(@NotNull List<List<String>> wordGroups) throws IOException {
         List<List<String>> verbGroups = new ArrayList<>();
 
         List<List<String>> finalVerbGroups = verbGroups;
@@ -67,6 +65,15 @@ class RussLang {
         saveSetToFileAndClear("outputVerbDPRepeat");
 
         FilesToOrFromLists.saveListsToFile(verbGroups, properties.getProperty("outputVerbGroups"));
+    }
+
+    private static void nounTasks(List<List<String>> wordGroups) throws IOException {
+        List<List<String>> nounGroups = new ArrayList<>(wordGroups);
+
+        nounGroups = NounTasks.renameNounTypes(nounGroups);
+        nounGroups = NounTasks.removeNouns(nounGroups);
+
+        saveListsToFile(nounGroups, properties.getProperty("outputNounGroups"));
     }
 
 }
