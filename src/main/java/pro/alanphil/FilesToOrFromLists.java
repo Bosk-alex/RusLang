@@ -61,7 +61,7 @@ class FilesToOrFromLists {
         return builder.toString();
     }
 
-    static void saveListToFile(List<String> group, String pathName) throws IOException {
+    private static void saveListToFile(List<String> group, String pathName) throws IOException {
         String output = makeOutputStringFromList(group);
         Files.writeString(Paths.get(pathName), output, StandardCharsets.UTF_16);
     }
