@@ -60,7 +60,7 @@ class VerbsTasks {
         for (int index = 0; index < list.size() - 1; index++) {
             String groupName = list.get(0);
             for (int subIndex = index + 1; subIndex < list.size(); subIndex++) {
-                if (list.get(index).contains(type) && list.get(subIndex).contains(type)) {
+                if (list.get(index).endsWith(type) && list.get(subIndex).endsWith(type)) {
                     groupsWithRepeats.add(groupName);
                     repeatingStrings.add(list.get(index));
                 }
