@@ -6,19 +6,15 @@ import java.util.*;
 import java.util.logging.*;
 
 import static pro.alanphil.Colors.*;
-import static pro.alanphil.FilesToOrFromLists.getGroupsFromFile;
-import static pro.alanphil.FilesToOrFromLists.getListFromFile;
-import static pro.alanphil.FilesToOrFromLists.getListOfEmptyIndexes;
-import static pro.alanphil.VerbsTasks.checkParticipleList;
-import static pro.alanphil.VerbsTasks.groupsWithRepeats;
-import static pro.alanphil.VerbsTasks.removeRepeats;
+import static pro.alanphil.FilesToOrFromLists.*;
+import static pro.alanphil.VerbsTasks.*;
 
 /**
  * Hello world!
  */
 class RussLang {
 
-    private static final Properties properties = new Properties();
+    static final Properties properties = new Properties();
     static final String PREFIX_ANSI = "\u001B[";
     static final String POSTFIX = PREFIX_ANSI + "0m";
     static final Logger logger = Logger.getLogger("Common");
@@ -48,11 +44,22 @@ class RussLang {
 
     private static void verbTasks(Map<String, List<List<String>>> wordGroups) throws IOException {
         List<List<String>> tempVerbGroups = new ArrayList<>();
+
         wordGroups.get("Verbs").forEach(list -> tempVerbGroups.add(removeRepeats(list)));
+        saveSetToFileAndClear("outputVerbStringRepeat");
+
         List<List<String>> verbGroups = checkParticipleList(tempVerbGroups);
 
+        verbGroups.forEach(list -> checkSubstringRepeats(list, GP));
+        saveSetToFileAndClear("outputVerbGPRepeat");
+
+        verbGroups.forEach(list -> checkSubstringRepeats(list, DN));
+        saveSetToFileAndClear("outputVerbDNRepeat");
+
+        verbGroups.forEach(list -> checkSubstringRepeats(list, DP));
+        saveSetToFileAndClear("outputVerbDPRepeat");
+
         FilesToOrFromLists.saveListsToFile(verbGroups, properties.getProperty("outputVerbGroups"));
-        FilesToOrFromLists.saveListToFile(new ArrayList<>(groupsWithRepeats), properties.getProperty("outputVerbRepeat"));
     }
 
 }
