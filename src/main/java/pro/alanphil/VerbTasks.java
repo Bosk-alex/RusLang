@@ -25,6 +25,7 @@ class VerbTasks {
     static final String DP = "ДП";
 
     private VerbTasks() {
+        logger.warning("Something happen");
         throw new IllegalStateException("Utility class");
     }
 
@@ -74,7 +75,6 @@ class VerbTasks {
         for (List<String> group : verbGroups) {
             newVerbGroups.add(checkParticipleGroup(group));
         }
-        logger.info("end of participle method");
         return newVerbGroups;
     }
 
