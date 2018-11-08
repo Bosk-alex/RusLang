@@ -25,7 +25,7 @@ class CommonTasks {
         return isTypeIn;
     }
 
-    static void renameTypeIfContains(List<String> newGroup, List<Integer> indexes, String subString1, String subString2, String type) {
+    static void renameTypeIfContains(List<String> newGroup, List<Integer> indexes, @SuppressWarnings("SameParameterValue") String subString1, @SuppressWarnings("SameParameterValue") String subString2, String type) {
         for (Integer index : indexes) {
             String word = newGroup.get(index);
             if (word.contains(subString1)) {

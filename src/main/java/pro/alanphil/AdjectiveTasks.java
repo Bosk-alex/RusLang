@@ -145,7 +145,7 @@ class AdjectiveTasks {
         return specAdjGroups;
     }
 
-    private static List<String> checkCapitalType(List<List<String>> adjectiveGroups, String type) {
+    private static List<String> checkCapitalType(List<List<String>> adjectiveGroups, @SuppressWarnings("SameParameterValue") String type) {
         List<String> specificCapitalType = new ArrayList<>();
 
         for (List<String> group : adjectiveGroups) {
@@ -157,7 +157,7 @@ class AdjectiveTasks {
         return specificCapitalType;
     }
 
-    private static List<String> checkTwoTypes(List<List<String>> adjectiveGroups, String firstType, String secondType) {
+    private static List<String> checkTwoTypes(List<List<String>> adjectiveGroups, @SuppressWarnings("SameParameterValue") String firstType, @SuppressWarnings("SameParameterValue") String secondType) {
         List<String> maleType = new ArrayList<>();
 
         for (List<String> group : adjectiveGroups) {
@@ -169,7 +169,7 @@ class AdjectiveTasks {
         return maleType;
     }
 
-    private static List<String> checkType(List<List<String>> adjectiveGroups, String type) {
+    private static List<String> checkType(List<List<String>> adjectiveGroups, @SuppressWarnings("SameParameterValue") String type) {
         List<String> singleType = new ArrayList<>();
 
         for (List<String> group : adjectiveGroups) {

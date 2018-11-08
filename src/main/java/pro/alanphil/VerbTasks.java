@@ -92,7 +92,7 @@ class VerbTasks {
         List<Integer> indexes = new ArrayList<>();
         boolean isTypeIn = CommonTasks.checkType(newGroup, indexes, type);
 
-        if(isTypeIn && indexes.size() > 1) {
+        if (isTypeIn && indexes.size() > 1) {
             renameTypeIfContains(newGroup, indexes, EY, EYU, type);
         }
 

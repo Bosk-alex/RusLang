@@ -12,8 +12,7 @@ import static pro.alanphil.CommonTasks.checkType;
 /**
  * Unit test for simple RussLang.
  */
-class RussLangTest
-{
+class RussLangTest {
     /**
      * Rigorous Test :-)
      */

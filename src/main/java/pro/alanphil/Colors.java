@@ -1,6 +1,7 @@
 package pro.alanphil;
 
-import static pro.alanphil.RussLang.*;
+import static pro.alanphil.RussLang.POSTFIX;
+import static pro.alanphil.RussLang.PREFIX_ANSI;
 
 public enum Colors {
     BLACK(30), BLUE(34), CYAN(36), GREEN(32), MAGENTA(35), RED(31), WHITE(37), YELLOW(33);
@@ -15,6 +16,7 @@ public enum Colors {
         return colorCode;
     }
 
+    @SuppressWarnings("unused")
     public static String colorMessage(String text, Colors color) {
         return colorAllMassages(text, color) + POSTFIX;
     }

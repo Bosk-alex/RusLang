@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import static pro.alanphil.CommonTasks.*;
+import static pro.alanphil.CommonTasks.checkType;
+import static pro.alanphil.CommonTasks.renameTypeIfEnds;
 import static pro.alanphil.RussLang.logger;
 
 class NounTasks {
