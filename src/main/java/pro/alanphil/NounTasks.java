@@ -21,6 +21,7 @@ class NounTasks {
     private static final CharSequence LIFELESS = "неод";
 
     private NounTasks() {
+        logger.warning("Something happen");
         throw new IllegalStateException("Utility class");
     }
 
@@ -76,8 +77,7 @@ class NounTasks {
             }
         }
         if (checkIndex != Integer.MAX_VALUE && sampleIndex != Integer.MAX_VALUE && !checkValue.equals(sampleValue)) {
-            int finalCheckIndex = checkIndex;
-            logger.info(() -> nounGroup.remove(finalCheckIndex));
+            nounGroup.remove(checkIndex);
         }
     }
 }
