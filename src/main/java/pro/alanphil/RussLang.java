@@ -5,12 +5,14 @@ import org.jetbrains.annotations.NotNull;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
-import static pro.alanphil.Colors.*;
-import static pro.alanphil.FilesToOrFromLists.*;
 import static pro.alanphil.AdjectiveTasks.*;
-import static pro.alanphil.NounTasks.*;
+import static pro.alanphil.Colors.BLUE;
+import static pro.alanphil.Colors.colorAllMassages;
+import static pro.alanphil.FilesToOrFromLists.*;
+import static pro.alanphil.NounTasks.removeNouns;
+import static pro.alanphil.NounTasks.renameNounTypes;
 import static pro.alanphil.VerbTasks.*;
 
 /**
@@ -25,7 +27,6 @@ class RussLang {
     static final String STRING_SEPARATOR = "\n";
 
     public static void main(String[] args) throws IOException {
-        logger.config(() -> colorMessage("New color", BLUE));
         logger.info(() -> colorAllMassages("Change color of Error massage", BLUE));
         properties.load(new FileInputStream("src/main/resources/RusLang.properties"));
         Map<String, List<List<String>>> wordGroups = createMapOfLists();
@@ -84,10 +85,10 @@ class RussLang {
         List<List<String>> adjectiveGroups = new ArrayList<>(wordGroups);
 
         List<List<String>> adjNoRules = checkAdjRules(adjectiveGroups);
-////        List<List<String>> adjWithRepeats = checkAdjRepreats(adjectiveGroups);
-////        List<List<String>> specificAdj = checkSpecificAdj(adjectiveGroups);
-//
-        saveAdjListsToFiles(adjNoRules);
+        List<List<String>> adjWithRepeats = checkAdjRepeats(adjectiveGroups);
+        List<List<String>> specificAdj = checkSpecificAdj(adjectiveGroups);
+
+        saveAdjListsToFiles(adjNoRules, adjWithRepeats, specificAdj);
     }
 
 }
