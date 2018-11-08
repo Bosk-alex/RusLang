@@ -1,20 +1,24 @@
 package pro.alanphil;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static pro.alanphil.CommonTasks.checkType;
+
 
 /**
  * Unit test for simple RussLang.
  */
-public class RussLangTest
+class RussLangTest
 {
     /**
      * Rigorous Test :-)
      */
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void checkTypeTest() {
+        assertTrue(checkType(new ArrayList<>(Arrays.asList("1", "2", "3")), new ArrayList<>(), "1"));
     }
 }
