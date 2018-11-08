@@ -20,6 +20,10 @@ class AdjectiveTasks {
     private static final String[] PK = {"ПКмИ", "ПКжИ", "ПКсИ", "ПКмн"};
     private static final String PS1 = "ПС1";
     private static final String[] PS = {"ПС1*", "ПС2*"};
+    private static final String PMI = ".ПмИ";
+    private static final String PZI = ".ПжИ";
+    private static final String PSI = ".ПсИ";
+    private static final String PMNI = ".ПмнИ";
 
     private AdjectiveTasks() {
         logger.warning("Something happen");
@@ -28,7 +32,7 @@ class AdjectiveTasks {
 
 
     @SafeVarargs
-    static void saveAdjListsToFiles(List<List<String>> ... adjectives) throws IOException {
+    static void saveAdjListsToFiles(List<List<String>>... adjectives) throws IOException {
         int index = 1;
         for (List<List<String>> adjGroup : adjectives) {
             saveListsToFiles(adjGroup, "outputAdj" + index);
@@ -62,8 +66,8 @@ class AdjectiveTasks {
         List<String> noRule1 = new ArrayList<>();
 
         for (List<String> group : adjectiveGroups) {
-            boolean type1 = checkType(firstType, group);
-            boolean type2 = checkType(secondType, group);
+            boolean type1 = containsType(firstType, group);
+            boolean type2 = containsType(secondType, group);
 
             if (!type1 && !type2) {
                 noRule1.add(group.get(0));
@@ -73,7 +77,7 @@ class AdjectiveTasks {
         return noRule1;
     }
 
-    private static boolean checkType(String type, List<String> group) {
+    private static boolean containsType(String type, List<String> group) {
         boolean containsType = false;
         for (String word : group) {
             if (word.contains(type)) {
@@ -123,5 +127,57 @@ class AdjectiveTasks {
             else counter++;
         }
         return counter;
+    }
+
+    static List<List<String>> checkSpecificAdj(List<List<String>> adjectiveGroups) {
+        List<List<String>> specAdjGroups = new ArrayList<>();
+
+        List<String> wrongGroup = checkCapitalType(adjectiveGroups, PMI);
+        specAdjGroups.add(wrongGroup);
+
+        wrongGroup = checkTwoTypes(adjectiveGroups, PZI, PSI);
+        specAdjGroups.add(wrongGroup);
+
+        wrongGroup = checkType(adjectiveGroups, PMNI);
+        specAdjGroups.add(wrongGroup);
+
+
+        return specAdjGroups;
+    }
+
+    private static List<String> checkCapitalType(List<List<String>> adjectiveGroups, String type) {
+        List<String> specificCapitalType = new ArrayList<>();
+
+        for (List<String> group : adjectiveGroups) {
+            if (!group.get(0).contains(type)) {
+                specificCapitalType.add(group.get(0));
+            }
+        }
+
+        return specificCapitalType;
+    }
+
+    private static List<String> checkTwoTypes(List<List<String>> adjectiveGroups, String firstType, String secondType) {
+        List<String> maleType = new ArrayList<>();
+
+        for (List<String> group : adjectiveGroups) {
+            if (!containsType(firstType, group) || !containsType(secondType, group)) {
+                maleType.add(group.get(0));
+            }
+        }
+
+        return maleType;
+    }
+
+    private static List<String> checkType(List<List<String>> adjectiveGroups, String type) {
+        List<String> singleType = new ArrayList<>();
+
+        for (List<String> group : adjectiveGroups) {
+            if (!containsType(type, group)) {
+                singleType.add(group.get(0));
+            }
+        }
+
+        return singleType;
     }
 }
