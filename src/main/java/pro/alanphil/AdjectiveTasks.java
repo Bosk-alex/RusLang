@@ -17,6 +17,9 @@ class AdjectiveTasks {
     private static final String PMV2 = "ПмВ2";
     private static final String PMNV1 = "ПмнВ1";
     private static final String PMNV2 = "ПмнВ2";
+    private static final String[] PK = {"ПКмИ", "ПКжИ", "ПКсИ", "ПКмн"};
+    private static final String PS1 = "ПС1";
+    private static final String[] PS = {"ПС1*", "ПС2*"};
 
     private AdjectiveTasks() {
         logger.warning("Something happen");
@@ -28,7 +31,7 @@ class AdjectiveTasks {
     static void saveAdjListsToFiles(List<List<String>> ... adjectives) throws IOException {
         int index = 1;
         for (List<List<String>> adjGroup : adjectives) {
-            saveListsToFiles(adjGroup, "outputAdjRule");
+            saveListsToFiles(adjGroup, "outputAdj" + index);
             index++;
         }
     }
@@ -51,8 +54,6 @@ class AdjectiveTasks {
 
         wrongGroup = checkRule(adjectiveGroups, PMNV1, PMNV2);
         noRuleGroups.add(wrongGroup);
-
-        logger.info(() -> String.valueOf(noRuleGroups.size()));
 
         return noRuleGroups;
     }
@@ -81,5 +82,46 @@ class AdjectiveTasks {
             }
         }
         return containsType;
+    }
+
+    static List<List<String>> checkAdjRepeats(List<List<String>> adjectiveGroups) {
+        List<List<String>> groupsWithRepeats = new ArrayList<>();
+
+        List<String> wrongGroup = checkRepeats(adjectiveGroups, PK);
+        groupsWithRepeats.add(wrongGroup);
+
+        wrongGroup = checkRepeats(adjectiveGroups, PS1);
+        groupsWithRepeats.add(wrongGroup);
+
+        wrongGroup = checkRepeats(adjectiveGroups, PS);
+        groupsWithRepeats.add(wrongGroup);
+
+        return groupsWithRepeats;
+    }
+
+    private static List<String> checkRepeats(List<List<String>> adjectiveGroups, String... types) {
+        List<String> groupWithRepeats = new ArrayList<>();
+
+        for (List<String> group : adjectiveGroups) {
+            int counter = 0;
+            counter = countTypes(group, counter, types);
+            if (counter == types.length) groupWithRepeats.add(group.get(0));
+        }
+
+        return groupWithRepeats;
+    }
+
+    private static int countTypes(List<String> group, int counter, String[] types) {
+        for (String type : types) {
+            int typeIndex = 0;
+            for (String word : group) {
+                if (word.contains(type)) {
+                    typeIndex++;
+                }
+            }
+            if (typeIndex < 2) break;
+            else counter++;
+        }
+        return counter;
     }
 }
