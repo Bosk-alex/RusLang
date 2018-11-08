@@ -9,6 +9,8 @@ import java.util.logging.*;
 
 import static pro.alanphil.Colors.*;
 import static pro.alanphil.FilesToOrFromLists.*;
+import static pro.alanphil.AdjectiveTasks.*;
+import static pro.alanphil.NounTasks.*;
 import static pro.alanphil.VerbTasks.*;
 
 /**
@@ -31,6 +33,8 @@ class RussLang {
         verbTasks(wordGroups.get("Verbs"));
 
         nounTasks(wordGroups.get("Nouns"));
+
+        adjectiveTasks(wordGroups.get("Adjectives"));
     }
 
     private static Map<String, List<List<String>>> createMapOfLists() throws IOException {
@@ -70,10 +74,20 @@ class RussLang {
     private static void nounTasks(List<List<String>> wordGroups) throws IOException {
         List<List<String>> nounGroups = new ArrayList<>(wordGroups);
 
-        nounGroups = NounTasks.renameNounTypes(nounGroups);
-        nounGroups = NounTasks.removeNouns(nounGroups);
+        nounGroups = renameNounTypes(nounGroups);
+        nounGroups = removeNouns(nounGroups);
 
         saveListsToFile(nounGroups, properties.getProperty("outputNounGroups"));
+    }
+
+    private static void adjectiveTasks(List<List<String>> wordGroups) throws IOException {
+        List<List<String>> adjectiveGroups = new ArrayList<>(wordGroups);
+
+        List<List<String>> adjNoRules = checkAdjRules(adjectiveGroups);
+////        List<List<String>> adjWithRepeats = checkAdjRepreats(adjectiveGroups);
+////        List<List<String>> specificAdj = checkSpecificAdj(adjectiveGroups);
+//
+        saveAdjListsToFiles(adjNoRules);
     }
 
 }
