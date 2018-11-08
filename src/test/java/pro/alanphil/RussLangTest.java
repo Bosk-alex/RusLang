@@ -18,7 +18,7 @@ class RussLangTest
      * Rigorous Test :-)
      */
     @Test
-    public void checkTypeTest() {
+    void checkTypeTest() {
         assertTrue(checkType(new ArrayList<>(Arrays.asList("1", "2", "3")), new ArrayList<>(), "1"));
     }
 }
